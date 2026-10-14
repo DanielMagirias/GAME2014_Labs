@@ -5,5 +5,5 @@ using UnityEngine;
 public struct Boundary
 {
     public float min;
-    public float max; 
+    public float max;
 }
