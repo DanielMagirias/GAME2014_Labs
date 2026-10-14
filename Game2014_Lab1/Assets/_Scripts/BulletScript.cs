@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BulletScript : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class BulletScript : MonoBehaviour
         {
             //Destroy(gameObject);
             bulletManager.ReturnBullet(gameObject);
+            SceneManager.LoadScene(2);
         }
     }
 }
