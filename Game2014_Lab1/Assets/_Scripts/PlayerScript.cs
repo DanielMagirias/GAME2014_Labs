@@ -10,15 +10,27 @@ public class PlayerScript : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    [SerializeField] private Transform bulletSpawn;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float fireRate = 3f;
+    private float nextFireTime;
+    private BulletManager bulletManager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        bulletManager = FindAnyObjectByType<BulletManager>();
+
+        nextFireTime = Time.time + fireRate;
     }
 
     void Update()
     {
         Move();
         CheckBounds();
+        Fire();
+
     }
 
     private void FixedUpdate()
@@ -69,6 +81,16 @@ public class PlayerScript : MonoBehaviour
         if (transform.position.x > bounds.max)
         {
             transform.position = new Vector2(bounds.max, transform.position.y);
+        }
+    }
+
+    private void Fire()
+    {
+
+        if (Time.time >= nextFireTime)
+        {
+            bulletManager.GetBullet(bulletSpawn.position, BulletOwner.Player);
+            nextFireTime = Time.time + fireRate;
         }
     }
 

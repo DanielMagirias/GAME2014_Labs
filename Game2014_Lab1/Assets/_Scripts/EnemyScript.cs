@@ -7,7 +7,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private Boundary startingYRange;
 
     private Vector2 startingPoint;
-    private float randomSpeed;
+    [SerializeField] private float randomSpeed;
 
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private GameObject bulletPrefab;
@@ -40,7 +40,7 @@ public class EnemyScript : MonoBehaviour
 
         if (Time.time >= nextFireTime)
         {
-            bulletManager.GetBullet(bulletSpawn.position);
+            bulletManager.GetBullet(bulletSpawn.position, BulletOwner.Enemy);
             nextFireTime = Time.time + fireRate;
         }
     }

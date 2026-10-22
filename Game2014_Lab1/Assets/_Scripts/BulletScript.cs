@@ -1,12 +1,25 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum BulletOwner
+{
+    Player,
+    Enemy
+}
+
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private Boundary screenBounds;
 
     private BulletManager bulletManager;
+
+    private BulletOwner owner;
+
+    public void SetOwner(BulletOwner newOwner)
+    {
+        owner = newOwner;
+    }
 
     void Start()
     {
@@ -21,12 +34,20 @@ public class BulletScript : MonoBehaviour
 
     private void Move()
     {
-        transform.position -= new Vector3(0.0f, speed * Time.deltaTime, 0.0f);
+        if (owner == BulletOwner.Enemy)
+        {
+            transform.position -= new Vector3(0.0f, speed * Time.deltaTime, 0.0f);
+        }
+
+        if (owner == BulletOwner.Player)
+        {
+            transform.position -= new Vector3(0.0f, -speed * Time.deltaTime, 0.0f);
+        }
     }
 
     private void CheckBounds()
     {
-        if (transform.position.y < screenBounds.min)
+        if (transform.position.y < screenBounds.min || transform.position.y > screenBounds.max)
         {
             //Destroy(gameObject);
             bulletManager.ReturnBullet(gameObject);
@@ -35,11 +56,22 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        
+        if (owner == BulletOwner.Enemy && collision.CompareTag("Player"))
         {
-            //Destroy(gameObject);
+            
+            Debug.Log("Player Hit");
             bulletManager.ReturnBullet(gameObject);
-            SceneManager.LoadScene(2);
+            //SceneManager.LoadScene(2);
+        }
+
+        
+        else if (owner == BulletOwner.Player && collision.CompareTag("Enemy"))
+        {
+            
+            Debug.Log("Enemy Hit");
+            Destroy(collision.gameObject);
+            bulletManager.ReturnBullet(gameObject);
         }
     }
 }

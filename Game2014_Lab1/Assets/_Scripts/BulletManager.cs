@@ -36,7 +36,7 @@ public class BulletManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBullet(Vector3 spawnPos)
+    public GameObject GetBullet(Vector3 spawnPos, BulletOwner owner)
     {
 
         if (pool.Count < 1)
@@ -46,6 +46,8 @@ public class BulletManager : MonoBehaviour
 
         var bullet = pool.Dequeue();
         bullet.transform.position = spawnPos;
+        BulletScript bulletScript = bullet.GetComponent<BulletScript>();
+        bulletScript.SetOwner(owner);
         bullet.SetActive(true);
         return bullet;
     }
