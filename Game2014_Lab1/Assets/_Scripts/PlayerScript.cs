@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,9 @@ public class PlayerScript : MonoBehaviour
 
 
     [SerializeField] public int lives;
+    [SerializeField] private GameObject forcefield;
+    [SerializeField] private int forcefieldDuration;
+    private bool bIsForcefieldActive = false;
 
     void Start()
     {
@@ -30,6 +34,8 @@ public class PlayerScript : MonoBehaviour
         gc = FindAnyObjectByType<GameController>();
 
         nextFireTime = Time.time + fireRate;
+
+        forcefield.SetActive(false);
     }
 
     void Update()
@@ -113,14 +119,35 @@ public class PlayerScript : MonoBehaviour
 
     public void TakeDamage()
     {
+
+        if (bIsForcefieldActive)
+        {
+
+            return;
+        }
+
         lives--;
         gc.UpdateLivesText();
+        StartCoroutine(ActivateForcefield());
 
         if (lives == 0)
         {
 
             SceneManager.LoadScene(2);
         }
+    }
+
+    IEnumerator ActivateForcefield()
+    {
+        forcefield.SetActive(true);
+        bIsForcefieldActive = true;
+
+        yield return new WaitForSeconds(forcefieldDuration);
+
+        forcefield.SetActive(false);
+        bIsForcefieldActive = false;
+
+        StopCoroutine(ActivateForcefield());
     }
 
 }
