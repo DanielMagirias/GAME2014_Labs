@@ -11,7 +11,8 @@ public class EnemyScript : MonoBehaviour
 
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private int fireRate = 10;
+    [SerializeField] private float fireRate = 3f;
+    private float nextFireTime;
 
     private BulletManager bulletManager;
 
@@ -27,6 +28,8 @@ public class EnemyScript : MonoBehaviour
 
         transform.position = startingPoint;
 
+        nextFireTime = Time.time + fireRate;
+
     }
 
     void Update()
@@ -34,16 +37,11 @@ public class EnemyScript : MonoBehaviour
         float x = Mathf.PingPong(Time.time * randomSpeed, movementBounds.max - movementBounds.min) + movementBounds.min;
 
         transform.position = new Vector2(x, transform.position.y);
-    }
 
-    private void FixedUpdate()
-    {
-        if (Time.frameCount % fireRate == 0)
+        if (Time.time >= nextFireTime)
         {
-            //var bullet = Instantiate(bulletPrefab);
-            //bullet.transform.position = bulletSpawn.position;
-
             bulletManager.GetBullet(bulletSpawn.position);
+            nextFireTime = Time.time + fireRate;
         }
     }
 }

@@ -41,19 +41,13 @@ public class BackgroundScroll : MonoBehaviour
     {
         switch (Screen.orientation)
         {
-            case ScreenOrientation.LandscapeLeft:
-                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-                break;
-
-            case ScreenOrientation.LandscapeRight:
-                transform.rotation = Quaternion.Euler(0f, 0f, -90f);
-                break;
 
             case ScreenOrientation.Portrait:
                 transform.rotation = Quaternion.Euler(0f, 0f, -90f);
                 break;
 
             case ScreenOrientation.PortraitUpsideDown:
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
                 break;
         }
     }

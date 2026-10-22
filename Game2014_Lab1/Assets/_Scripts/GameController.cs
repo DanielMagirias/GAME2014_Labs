@@ -30,14 +30,6 @@ public class GameController : MonoBehaviour
         livesText.rectTransform.position = new Vector2(Screen.safeArea.xMax - livesTextHalfWidth, Screen.safeArea.yMax - livesTextHalfHeight);
 
         switch (Screen.orientation) { 
-        
-            case ScreenOrientation.LandscapeLeft:
-                screenText.text = "LandscapeLeft";
-                break;
-
-            case ScreenOrientation.LandscapeRight:
-                screenText.text = "LandscapeRight";
-                break;
 
             case ScreenOrientation.Portrait:
                 screenText.text = "Portrait";
