@@ -22,7 +22,8 @@ public class EnemyScript : MonoBehaviour
 
         bulletManager = FindAnyObjectByType<BulletManager>();
 
-        randomSpeed = Random.Range(movementBounds.min, movementBounds.max);
+        //randomSpeed = Random.Range(movementBounds.min, movementBounds.max);
+        randomSpeed = 1.0f;
 
         startingPoint = new Vector2(Random.Range(startingXRange.min, startingXRange.max), Random.Range(startingYRange.min, startingYRange.max));
 
@@ -34,14 +35,24 @@ public class EnemyScript : MonoBehaviour
 
     void Update()
     {
-        float x = Mathf.PingPong(Time.time * randomSpeed, movementBounds.max - movementBounds.min) + movementBounds.min;
-
-        transform.position = new Vector2(x, transform.position.y);
+        Move();
 
         if (Time.time >= nextFireTime)
         {
             bulletManager.GetBullet(bulletSpawn.position, BulletOwner.Enemy);
             nextFireTime = Time.time + fireRate;
+        }
+    }
+
+    private void Move()
+    {
+        
+        transform.position -= new Vector3(0f, randomSpeed * Time.deltaTime, 0f);
+
+        if (transform.position.y <= movementBounds.min)
+        {
+            
+            transform.position = new Vector2(Random.Range(startingXRange.min, startingXRange.max), movementBounds.max);
         }
     }
 }
