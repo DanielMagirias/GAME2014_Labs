@@ -13,6 +13,8 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private Boundary screenBounds;
 
     private BulletManager bulletManager;
+    private GameController gc;
+    private PlayerScript ps;
 
     private BulletOwner owner;
 
@@ -24,6 +26,8 @@ public class BulletScript : MonoBehaviour
     void Start()
     {
         bulletManager = FindAnyObjectByType<BulletManager>();
+        gc = FindAnyObjectByType<GameController>();
+        ps = FindAnyObjectByType<PlayerScript>();
     }
 
     void Update()
@@ -62,7 +66,7 @@ public class BulletScript : MonoBehaviour
             
             Debug.Log("Player Hit");
             bulletManager.ReturnBullet(gameObject);
-            //SceneManager.LoadScene(2);
+            ps.TakeDamage();
         }
 
         

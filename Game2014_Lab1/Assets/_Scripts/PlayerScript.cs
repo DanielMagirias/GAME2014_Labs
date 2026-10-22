@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -15,12 +17,17 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float fireRate = 3f;
     private float nextFireTime;
     private BulletManager bulletManager;
+    private GameController gc;
+
+
+    [SerializeField] public int lives;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         bulletManager = FindAnyObjectByType<BulletManager>();
+        gc = FindAnyObjectByType<GameController>();
 
         nextFireTime = Time.time + fireRate;
     }
@@ -91,6 +98,28 @@ public class PlayerScript : MonoBehaviour
         {
             bulletManager.GetBullet(bulletSpawn.position, BulletOwner.Player);
             nextFireTime = Time.time + fireRate;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+
+            Destroy(collision.gameObject);
+            TakeDamage();
+        }
+    }
+
+    public void TakeDamage()
+    {
+        lives--;
+        gc.UpdateLivesText();
+
+        if (lives == 0)
+        {
+
+            SceneManager.LoadScene(2);
         }
     }
 

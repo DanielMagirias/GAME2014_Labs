@@ -8,6 +8,8 @@ public class EnemyScript : MonoBehaviour
 
     private Vector2 startingPoint;
     [SerializeField] private float randomSpeed;
+    [SerializeField] private float randomSpeedMin;
+    [SerializeField] private float randomSpeedMax;
 
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private GameObject bulletPrefab;
@@ -22,8 +24,7 @@ public class EnemyScript : MonoBehaviour
 
         bulletManager = FindAnyObjectByType<BulletManager>();
 
-        //randomSpeed = Random.Range(movementBounds.min, movementBounds.max);
-        randomSpeed = 1.0f;
+        randomSpeed = Random.Range(randomSpeedMin, randomSpeedMax);
 
         startingPoint = new Vector2(Random.Range(startingXRange.min, startingXRange.max), Random.Range(startingYRange.min, startingYRange.max));
 

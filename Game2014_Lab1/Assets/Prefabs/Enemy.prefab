@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1583811624951560726}
   - component: {fileID: 4427479979615178052}
   - component: {fileID: 4776879431471420804}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -190,6 +190,8 @@ MonoBehaviour:
     min: 5.4
     max: 5.4
   randomSpeed: 0
+  randomSpeedMin: 0.5
+  randomSpeedMax: 2
   bulletSpawn: {fileID: 1193287005098674901}
   bulletPrefab: {fileID: 5126768627000927092, guid: 8205eb697057fee48a94e7a62819726c, type: 3}
   fireRate: 3
@@ -202,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1193287005098674901}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

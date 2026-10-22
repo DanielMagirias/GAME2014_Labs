@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -14,8 +15,14 @@ public class GameController : MonoBehaviour
     private float livesTextHalfHeight;
     private float livesTextHalfWidth;
 
+    private PlayerScript ps;
+
     void Start()
     {
+
+        ps = FindAnyObjectByType<PlayerScript>();
+        UpdateLivesText();
+
         scoreTextHalfHeight = scoreText.rectTransform.rect.height * 0.5f;
         scoreTextHalfWidth = scoreText.rectTransform.rect.width * 0.5f;
 
@@ -43,12 +50,12 @@ public class GameController : MonoBehaviour
                 screenText.text = "unknown";
                 break;
 
-
-
-
-
-
         }
 
+    }
+
+    public void UpdateLivesText()
+    {
+        livesText.text = "Lives: " + ps.lives;
     }
 }
