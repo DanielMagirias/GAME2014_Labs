@@ -118,6 +118,7 @@ public class PlayerScript : MonoBehaviour
 
             Destroy(collision.gameObject);
             TakeDamage();
+            gc.UpdateScoreText(50);
         }
     }
 
@@ -182,6 +183,12 @@ public class PlayerScript : MonoBehaviour
 
                 StartCoroutine(AttackSpeedBuff());
             }
+        }
+
+        else if (type == PickupType.Shield)
+        {
+
+            StartCoroutine(ActivateForcefield());
         }
     }
 

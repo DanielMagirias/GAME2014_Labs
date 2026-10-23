@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
 
     private PlayerScript ps;
 
+    private int totalScore;
+
     void Start()
     {
 
@@ -57,5 +59,11 @@ public class GameController : MonoBehaviour
     public void UpdateLivesText()
     {
         livesText.text = "Lives: " + ps.lives;
+    }
+
+    public void UpdateScoreText(int score)
+    {
+        totalScore += score;
+        scoreText.text = "Score: " + totalScore;
     }
 }

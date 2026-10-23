@@ -66,7 +66,6 @@ public class BulletScript : MonoBehaviour
         if (owner == BulletOwner.Enemy && collision.CompareTag("Player"))
         {
             
-            Debug.Log("Player Hit");
             bulletManager.ReturnBullet(gameObject);
             ps.TakeDamage();
         }
@@ -76,9 +75,8 @@ public class BulletScript : MonoBehaviour
         {
 
             int randomPickup = Random.Range(1, 11);
-
-            Debug.Log("Enemy Hit");
             Destroy(collision.gameObject);
+            gc.UpdateScoreText(50);
 
             if (randomPickup < 4)
             {
