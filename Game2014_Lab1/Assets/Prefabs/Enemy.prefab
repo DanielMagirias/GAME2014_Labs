@@ -194,7 +194,7 @@ MonoBehaviour:
   randomSpeedMax: 2
   bulletSpawn: {fileID: 1193287005098674901}
   bulletPrefab: {fileID: 5126768627000927092, guid: 8205eb697057fee48a94e7a62819726c, type: 3}
-  fireRate: 3
+  fireRate: 1.6
 --- !u!1 &7827973785667277991
 GameObject:
   m_ObjectHideFlags: 0

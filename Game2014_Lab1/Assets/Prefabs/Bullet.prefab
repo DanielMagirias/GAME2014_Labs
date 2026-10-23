@@ -145,3 +145,4 @@ MonoBehaviour:
   screenBounds:
     min: -5
     max: 5
+  pickup: {fileID: 1012836357400333006, guid: 2ac72dfdc058ac8489774699b5ec97b4, type: 3}

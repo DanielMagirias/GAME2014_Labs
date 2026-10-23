@@ -18,6 +18,8 @@ public class BulletScript : MonoBehaviour
 
     private BulletOwner owner;
 
+    [SerializeField] private GameObject pickup;
+
     public void SetOwner(BulletOwner newOwner)
     {
         owner = newOwner;
@@ -72,9 +74,18 @@ public class BulletScript : MonoBehaviour
         
         else if (owner == BulletOwner.Player && collision.CompareTag("Enemy"))
         {
-            
+
+            int randomPickup = Random.Range(1, 11);
+
             Debug.Log("Enemy Hit");
             Destroy(collision.gameObject);
+
+            if (randomPickup < 4)
+            {
+
+                Instantiate(pickup, collision.transform.position, Quaternion.identity);
+            }
+
             bulletManager.ReturnBullet(gameObject);
         }
     }

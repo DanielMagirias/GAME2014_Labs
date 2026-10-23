@@ -26,6 +26,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int forcefieldDuration;
     private bool bIsForcefieldActive = false;
 
+    [SerializeField] private float attackSpeedBuffDuration;
+    private bool bIsAttackSpeedBuffActive = false;
+    private float attackSpeedTimeRemaining = 0.0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -148,6 +152,58 @@ public class PlayerScript : MonoBehaviour
         bIsForcefieldActive = false;
 
         StopCoroutine(ActivateForcefield());
+    }
+
+    public void PickupBuff(PickupType type)
+    {
+        if (type == PickupType.Heal)
+        {
+            if (lives == 3)
+            {
+
+                return;
+            }
+
+            lives++;
+            gc.UpdateLivesText();
+        }
+
+        else if (type == PickupType.AttackSpeed)
+        {
+
+            if (bIsAttackSpeedBuffActive)
+            {
+
+                attackSpeedTimeRemaining += attackSpeedBuffDuration;
+            }
+
+            else
+            {
+
+                StartCoroutine(AttackSpeedBuff());
+            }
+        }
+    }
+
+    IEnumerator AttackSpeedBuff()
+    {
+        bIsAttackSpeedBuffActive = true;
+
+        fireRate /= 2.0f;
+        nextFireTime = Time.time + fireRate;
+
+        attackSpeedTimeRemaining = attackSpeedBuffDuration;
+
+        while (attackSpeedTimeRemaining > 0.0f)
+        {
+
+            attackSpeedTimeRemaining -= Time.deltaTime;
+            yield return null;
+        }
+
+        fireRate *= 2.0f;
+
+        bIsAttackSpeedBuffActive = false;
     }
 
 }
