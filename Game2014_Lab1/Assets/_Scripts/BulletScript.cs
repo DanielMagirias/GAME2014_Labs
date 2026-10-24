@@ -20,6 +20,7 @@ public class BulletScript : MonoBehaviour
 
     [SerializeField] private GameObject pickup;
 
+    [SerializeField] private AudioClip explosionSound;
     public void SetOwner(BulletOwner newOwner)
     {
         owner = newOwner;
@@ -75,6 +76,7 @@ public class BulletScript : MonoBehaviour
         {
 
             int randomPickup = Random.Range(1, 11);
+            AudioSource.PlayClipAtPoint(explosionSound, collision.transform.position);
             Destroy(collision.gameObject);
             gc.UpdateScoreText(50);
 

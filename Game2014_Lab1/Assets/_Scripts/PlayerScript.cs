@@ -30,6 +30,8 @@ public class PlayerScript : MonoBehaviour
     private bool bIsAttackSpeedBuffActive = false;
     private float attackSpeedTimeRemaining = 0.0f;
 
+    [SerializeField] private AudioClip explosionSound;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -116,6 +118,7 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
 
+            AudioSource.PlayClipAtPoint(explosionSound, collision.transform.position);
             Destroy(collision.gameObject);
             TakeDamage();
             gc.UpdateScoreText(50);
