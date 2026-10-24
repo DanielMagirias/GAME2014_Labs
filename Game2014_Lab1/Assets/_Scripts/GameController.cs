@@ -17,10 +17,12 @@ public class GameController : MonoBehaviour
 
     private PlayerScript ps;
 
-    private int totalScore;
+    public static int totalScore;
 
     void Start()
     {
+
+        totalScore = 0;
 
         ps = FindAnyObjectByType<PlayerScript>();
         UpdateLivesText();
